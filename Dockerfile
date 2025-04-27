@@ -1,5 +1,6 @@
 FROM joseluisq/static-web-server:2
 WORKDIR /
+CMD rm -rf ./public
 COPY ./assets/ ./public/
 ENV SERVER_PORT=3000
 ENV SERVER_CORS_ALLOW_ORIGINS="*"
