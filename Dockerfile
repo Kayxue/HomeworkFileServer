@@ -1,15 +1,7 @@
-FROM rust:alpine AS build
-WORKDIR /src
-COPY . .
-
-RUN USER=root apk add libc-dev
-RUN cargo build --release
-
-FROM scratch
+FROM joseluisq/static-web-server:2
 WORKDIR /
-COPY --from=build /src/target/release/albumserver ./serve
-COPY --from=build /src/assets/ ./assets/
+COPY ./assets/ ./public/
+ENV SERVER_PORT=3000
+ENV SERVER_CORS_ALLOW_ORIGINS="*"
 
 EXPOSE 3000
-
-ENTRYPOINT ["./serve"]
